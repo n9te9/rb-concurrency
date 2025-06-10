@@ -1,0 +1,56 @@
+name: Build Go Shared Library
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-go-shared-library:
+    name: Build Shared Library (${{ matrix.target_os }}-${{ matrix.target_arch }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - target_os: linux
+            target_arch: amd64
+            ext: so
+            platform_name: linux-amd64
+          - target_os: linux
+            target_arch: arm64
+            ext: so
+            platform_name: linux-arm64
+            CGO_CC: aarch64-linux-gnu-gcc
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24'
+
+    - name: Install ARM64 cross-compilation toolchain
+      run: |
+        sudo apt update
+        sudo apt install -y gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu libc6-dev-arm64-cross
+
+    - name: Build Go shared library for ${{ matrix.target_os }}-${{ matrix.target_arch }}
+      run: |
+        BUILD_DIR="bin/${{ matrix.platform_name }}"
+        mkdir -p $BUILD_DIR
+
+        cd go
+        go mod tidy
+
+        GOOS=${{ matrix.target_os }} GOARCH=${{ matrix.target_arch }} CGO_ENABLED=1 CC=${{ matrix.CGO_CC }} go build -buildmode=c-shared \
+        -o $BUILD_DIR/rb_concurrency.${{ matrix.ext }} \
+        ./cmd/rb_concurrency
+
+    - name: Upload artifact (${{ matrix.platform_name }})
+      uses: actions/upload-artifact@v4
+      with:
+        name: rb_concurrency-bin-${{ matrix.platform_name }}
+        path: go/bin/${{ matrix.platform_name }}
