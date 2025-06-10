@@ -27,7 +27,7 @@ module Rb
     end
 
     def self.so_path
-      File.expand_path("../../../../go/bin/#{self.current_go_arch}/rb_concurrency.so", __dir__)
+      File.expand_path("../../../go/bin/#{self.current_go_arch}/rb_concurrency.so", __dir__)
     end
 
     ffi_lib so_path
