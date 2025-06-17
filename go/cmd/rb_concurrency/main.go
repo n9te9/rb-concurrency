@@ -120,13 +120,13 @@ func request(ctx context.Context, client *http.Client, req *RubyRequest) *RubyRe
 
 	resp, err := client.Do(httpRequest.WithContext(ctx))
 	if err != nil {
-		return &RubyResponse{Status: http.StatusInternalServerError, Body: fmt.Sprintf(`{"error": "Error creating request: %v"}`, err)}
+		return &RubyResponse{Status: http.StatusInternalServerError, Body: fmt.Sprintf(`{"error": "Error request: %v"}`, err)}
 	}
 	defer resp.Body.Close()
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return &RubyResponse{Status: http.StatusInternalServerError, Body: fmt.Sprintf(`{"error": "Error creating request: %v"}`, err)}
+		return &RubyResponse{Status: http.StatusInternalServerError, Body: fmt.Sprintf(`{"error": "Error reading response body: %v"}`, err)}
 	}
 
 	b := json.RawMessage(bodyBytes)

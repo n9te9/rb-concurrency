@@ -125,19 +125,43 @@ module Rb
   end
 end
 
+# def print_gc_stats(label)
+#   gc_stats = GC.stat
+#   puts "--- GC Stats (#{label}) ---"
+#   puts "  Total allocated objects: #{gc_stats[:total_allocated_objects]}"
+#   puts "  Total freed objects: #{gc_stats[:total_freed_objects]}"
+#   puts "  Heap live slots: #{gc_stats[:heap_live_slots]}"
+#   puts "  Heap free slots: #{gc_stats[:heap_free_slots]}"
+#   puts "--------------------------"
+# end
+
+# print_gc_stats("Before loop")
+# GC.start
+
 # requests = [
-#   Rb::Concurrency::Request::Request.new(method: 'GET', uri: 'http://localhost:8181?count=1', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request::Request.new(method: 'GET', uri: 'http://localhost:8181?count=2', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request::Request.new(method: 'GET', uri: 'http://localhost:8181?count=3', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request::Request.new(method: 'GET', uri: 'http://localhost:8181?count=4', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request::Request.new(method: 'GET', uri: 'http://localhost:8181?count=5', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request::Request.new(method: 'GET', uri: 'http://localhost:8181?count=6', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=1', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=2', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=3', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=4', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=5', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=6', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=7', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=8', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=9', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=10', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=5', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=6', headers: { 'Accept' => ['application/json'] }),
 # ]
 
-# responses = Rb::Concurrency::Request.process(requests)
-# responses.each do |response|
-#   puts "Status: #{response.status}"
-#   puts "Headers: #{response.headers}"
-#   puts "Body: #{response.body}"
-#   puts "-------------------"
+# resps = Rb::Concurrency.process(requests)
+
+# resps.each do |resp|
+#   puts "Response: #{resp.status} - #{resp.body}"
+#   puts "Headers: #{resp.headers.inspect}"
 # end
+
+
+# GC.start
+
+# print_gc_stats("End of script")
+# $stdin.gets
