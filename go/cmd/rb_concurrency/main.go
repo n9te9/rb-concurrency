@@ -49,7 +49,7 @@ func process(message string) ([]byte, error) {
 	results := make([]*RubyResponse, len(data))
 	for _, item := range wrapRubyRequest {
 		wg.Add(1)
-		func(ctx context.Context, client *http.Client, item *WrapRubyRequest) {
+		go func(ctx context.Context, client *http.Client, item *WrapRubyRequest) {
 			defer wg.Done()
 			resp := request(ctx, client, item.RubyRequest)
 			mux.Lock()
