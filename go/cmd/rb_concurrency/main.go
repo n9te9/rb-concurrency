@@ -114,11 +114,11 @@ func request(ctx context.Context, client *http.Client, req *RubyRequest) *RubyRe
 
 	for k, headers := range req.Headers {
 		for _, v := range headers {
-			httpRequest.Header.Set(k, v)
+			httpRequest.Header.Add(k, v)
 		}
 	}
 
-	resp, err := client.Do(httpRequest.WithContext(ctx))
+	resp, err := client.Do(httpRequest)
 	if err != nil {
 		return &RubyResponse{Status: http.StatusInternalServerError, Body: fmt.Sprintf(`{"error": "Error request: %v"}`, err)}
 	}

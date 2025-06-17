@@ -149,8 +149,8 @@ end
 #   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=8', headers: { 'Accept' => ['application/json'] }),
 #   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=9', headers: { 'Accept' => ['application/json'] }),
 #   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=10', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=5', headers: { 'Accept' => ['application/json'] }),
-#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=6', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=11', headers: { 'Accept' => ['application/json'] }),
+#   Rb::Concurrency::Request.new(method: 'GET', uri: 'http://localhost:8181?count=12', headers: { 'Accept' => ['application/json'] }),
 # ]
 
 # resps = Rb::Concurrency.process(requests)
